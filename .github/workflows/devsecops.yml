@@ -149,10 +149,13 @@ jobs:
 
       - name: SonarCloud scan
         if: env.SONAR_TOKEN != ''
+        continue-on-error: ${{ vars.GATE_ENFORCE != 'true' }}
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_HOST_URL: https://sonarcloud.io
-
+        with:
+          args: >
+            -Dsonar.qualitygate.wait=true
   # ---------------------------------------------------------------- 6. DAST
   dast:
     name: DAST (OWASP ZAP)
