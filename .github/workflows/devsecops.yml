@@ -119,16 +119,14 @@ jobs:
 
       - name: Trivy filesystem scan (CRITICAL, HIGH)
         continue-on-error: ${{ vars.GATE_ENFORCE != 'true' }}
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          scan-type: fs
-          scan-ref: .
-          scanners: vuln
-          severity: CRITICAL,HIGH
-          ignore-unfixed: true
-          exit-code: "1"
-          format: json
-          output: trivy-fs-report.json
+        run: |
+          # readable table in the log (never fails)
+          docker run --rm -v "$PWD:/src" aquasec/trivy:latest fs /src \
+            --scanners vuln --severity CRITICAL,HIGH --ignore-unfixed --exit-code 0
+          # JSON report + gate (fails on CRITICAL/HIGH)
+          docker run --rm -v "$PWD:/src" aquasec/trivy:latest fs /src \
+            --scanners vuln --severity CRITICAL,HIGH --ignore-unfixed \
+            --exit-code 1 --format json --output /src/trivy-fs-report.json
 
       - name: Upload report
         if: always()
@@ -208,14 +206,12 @@ jobs:
 
       - name: Trivy image scan (CRITICAL, HIGH)
         continue-on-error: ${{ vars.GATE_ENFORCE != 'true' }}
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: ${{ env.IMAGE_NAME }}:ci
-          severity: CRITICAL,HIGH
-          ignore-unfixed: true
-          exit-code: "1"
-          format: json
-          output: trivy-image-report.json
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image \
+            --severity CRITICAL,HIGH --ignore-unfixed --exit-code 0 ${{ env.IMAGE_NAME }}:ci
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:/out" aquasec/trivy:latest image \
+            --severity CRITICAL,HIGH --ignore-unfixed --exit-code 1 \
+            --format json --output /out/trivy-image-report.json ${{ env.IMAGE_NAME }}:ci
 
       - name: Upload report
         if: always()
