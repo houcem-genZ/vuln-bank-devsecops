@@ -1,0 +1,14 @@
+# Accepted: intentionally fake keys in a vulnerable-by-design app (exposed_env_files.py, test fixtures)
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:exposed_env_files.py:generic-api-key:4
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:exposed_env_files.py:generic-api-key:5
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:exposed_env_files.py:generic-api-key:13
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:exposed_env_files.py:generic-api-key:21
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:exposed_env_files.py:generic-api-key:22
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:110
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:136
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:156
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:184
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:214
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:240
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:251
+902f5371215e16e5262d8fe2e13a2c93f8ec03ee:tests/test_merchant_payments.py:generic-api-key:272
